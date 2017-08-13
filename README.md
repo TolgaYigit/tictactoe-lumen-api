@@ -19,7 +19,7 @@ Mbstring PHP Extension
 
 First, clone the repo:
 ```
-$ git clone git@github.com:TolgaYigit/tictactoe-lumen-api.git
+$  git clone https://github.com/TolgaYigit/tictactoe-lumen-api.git
 ```
 #### Install dependencies
 ```
