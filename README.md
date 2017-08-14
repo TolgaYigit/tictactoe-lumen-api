@@ -52,10 +52,10 @@ $ php artisan migrate --seed
 | POST     	| /login | authenticate| Login as user
 | POST     	| /register | register | Create an user
 | GET      	| /user/{user_id}* | getSingleUser |  Fetch an user by id
-| GET      	| /users* | getUserList |  Fetch all users
-| PUT      	| /users/{user_id}* | updateUser | Update an user by id
-| DELETE   	| /users/{user_id}* | deleteUser | Delete an user by id
-| GET		| /games/available* | listAvailableGames | Lists available games
+| POST     	| /user/{user_id}* | updateUser | Update an user by id
+| GET       | /users* | getUserList |  Fetch all users
+| DELETE   	| /user/{user_id}* | deleteUser | Delete an user by id
+| GET		| /games* | listAvailableGames | Lists available games
 | GET		| /game/{game_id}* | getGameInfo | Fetch a game by id
 | POST 		| /game/join* | joinBattle | Join a battle or create one if none available
 | POST 		| /game/placemarker* | placeMarker | Place marker

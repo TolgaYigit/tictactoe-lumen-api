@@ -12,10 +12,10 @@
 */
 
 $app->get('/', function () use ($app) {
-    return 'This API made with '.$app->version().'. For further information please read the documantation.';
+    return view('home', ['version' => $app->version()]);
 });
 
-$app->get('/test','GameController@index');
+//$app->get('/test','GameController@index');
 
 $app->post('/register','UserController@register');
 $app->post('/login','UserController@authenticate');
@@ -24,12 +24,12 @@ $app->post('/login','UserController@authenticate');
 $app->group(['middleware' => 'auth'], function () use ($app) {
 	//user
 	$app->get('/user/{id}', ['uses' => 'UserController@getSingleUser']);
-	$app->put('/user/{id}', ['uses' => 'UserController@updateUser']);
+	$app->post('/user/{id}', ['uses' => 'UserController@updateUser']);
 	$app->get('/users', ['uses' => 'UserController@getUserList']);
 	$app->delete('/user/{user_id}', ['uses' => 'UserController@deleteUser']);
 
 	//game
-	$app->get('/games/available','GameController@listAvailableGames');
+	$app->get('/games','GameController@listAvailableGames');
 	$app->get('/game/{game_id}','GameController@getGameInfo');
 	$app->post('/game/join','GameController@joinBattle');
 	$app->post('/game/placemarker','GameController@placeMarker');

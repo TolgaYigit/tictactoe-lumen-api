@@ -20,8 +20,12 @@ class UserController extends Controller
      */
     public function getSingleUser($user_id)
     {
-        $user = User::find($user_id);
-        return Response::success($user);
+        try {
+            $user = User::findOrFail($user_id);
+            return Response::success($user);
+        } catch (\Exception $e) {
+            return Response::error('There is no user with that id.');
+        }
     }
 
     /**
@@ -92,18 +96,17 @@ class UserController extends Controller
      * @param  Request $request [string username, string password]
      * @return User::class
      */
-    public function updateUser(Request $request)
+    public function updateUser(Request $request, $user_id)
     {
         $this->validate($request, [
             'username' => 'required|unique:users,username',
-            'user_id' => 'required|integer',
             'password' => 'required',
         ]);
 
         $hasher = app()->make('hash');
         $username = $request->input('username');
         $password = $hasher->make($request->input('password'));
-        $user = User::findOrFail($request->user_id);
+        $user = User::findOrFail($user_id);
         $data =[
             'username' => $username,
             'password' => $password,

@@ -37,13 +37,6 @@ class Game extends Model
     	return $query->where('status', 2);
     }
 
-    /*public function scopeCanPlace($query, $x, $y)
-    {
-    	return $query->whereHas('moves', function($q) use($x, $y){
-    		$q->where([['x_axis', '!=', $x],['y_axis', '!=', $y]]);
-    	});
-    }*/
-
     public function getEmptyRoom(){
     	if($this->pO == null){
     		return 'pO';
@@ -51,11 +44,6 @@ class Game extends Model
     		return 'pX';
     	}
     }
-   	
-	/*public function players()
-	{
-   		return [$this->playerX, $this->playerO];
-   	}*/
 
    	public function moves()
    	{

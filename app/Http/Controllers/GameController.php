@@ -49,7 +49,7 @@ class GameController extends Controller
 
     public function listAvailableGames()
     {
-        return Response::success(Game::notFull()->get());
+        return Response::success(Game::available()->get());
     }
 
     /**
@@ -115,7 +115,6 @@ class GameController extends Controller
                     break;
             }
         } catch (\Exception $e) {
-            dd($e);
             return Response::error($e->getMessage(), 400);
         }
     }
@@ -193,9 +192,9 @@ class GameController extends Controller
             $game->update([
                 $emptyRoom => $this->user->id,
                 'start_time' => Carbon::now(),
+                'status' => 2,
             ]);
         } catch (\Exception $e) {
-            dd( $e);
             $game = $this->createBattle($this->user->id);
         }
 
