@@ -19,7 +19,7 @@ Mbstring PHP Extension
 
 First, clone the repo:
 ```
-$  git clone https://github.com/TolgaYigit/tictactoe-lumen-api.git
+$ git clone https://github.com/TolgaYigit/tictactoe-lumen-api.git
 ```
 #### Install dependencies
 ```
@@ -31,11 +31,11 @@ Create `.env` file:
 ```
 $ cat .env.example > .env
 ```
-If you want you can edit database name, database username and database password.
+If you want you can edit database name, database username and database password in your `.env` file located in root folder.
 
 
 #### Migrations
-First, we need connect to the database. For homestead user, login using default homestead username and password:
+First, we need to connect to the database and create tables that we need.
 
 Run the Artisan migrate command:
 ```
@@ -64,12 +64,15 @@ $ php artisan migrate --seed
 
 ### Authentication
 
+#### Register
+To register as a user, use the `/register` route. Register method needs two parameters; `username` and `password`.  
+
 #### Creating api_key and Login
 The api_key is used for granting access to a user. For creating api_key we have to use the `/login` route. Here is an example of creating api_key with [Postman](https://www.getpostman.com/).
 ![api_key_creation](/public/docs/images/register.png?raw=true "api_key creation example")
 
 #### Using the api_key
-Some routes are restricted to public use. To use those routes you have to login and send request with the api_key you have should put it in the HTTP "Authorization" header.
+Some routes are restricted to public use. To use those routes, you have to put the api_key in the HTTP "Authorization" header every time you send request.
 ![authorization](/public/docs/images/authorization.png?raw=true "authorization example")
 
 ### Playing the Game
@@ -108,7 +111,7 @@ The `/game/join` route returns `Game` object as response.
 | 2     | Online
 
 #### Place Marker
-To place marker to a game use `/game/placemarker`.  If desired the marker location isn't able play (i.e. the location is full) `error` response returns.
+To place marker to a game use `/game/placemarker`. If a marker already exists in the location that you choose, `error` response returns.
 
 ```
 {
@@ -151,4 +154,4 @@ To place marker to a game use `/game/placemarker`.  If desired the marker locati
 
 ## License
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+The Lumen framework is an open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
