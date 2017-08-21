@@ -144,7 +144,7 @@ To place marker to a game use `/game/placemarker`. If a marker already exists in
 | `GAME` result| Desciption  |
 | ----- | ------------- |
 | 0		| Tie
-| 1...n | User_Id
+| 1...n | Winner (User_Id)
 
 
 

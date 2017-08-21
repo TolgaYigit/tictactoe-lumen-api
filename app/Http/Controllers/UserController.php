@@ -127,6 +127,8 @@ class UserController extends Controller
             } catch (\Exception $e) {
                 return Response::error();
             }
+        } else {
+            return Response::error("Unauthorized. You don't have admin rights.", 401);
         }
     }
 }

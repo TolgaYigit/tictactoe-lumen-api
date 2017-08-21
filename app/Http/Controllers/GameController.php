@@ -53,24 +53,26 @@ class GameController extends Controller
     }
 
     /**
-     * [placeMarker description]
      * @param  Request $request [game_id, x-axis, y-axis]
-     * @return [type]           [description]
+     * @return Response::class
      */
     public function placeMarker(Request $request)
     {
         try {
             $game = Game::with('moves')
-                    ->active()
                     ->isPlayer($this->user->id)
                     ->findOrFail($request->game_id);
+                    
+            if($game->status != 2){
+                return Response::error("This game is not online.", 400);
+            }
 
             $t = $game->moves->first(function ($move) use($request){
-                return ($move->x_axis == $request->x_axis || $move->y_axis == $request->y_axis);
+                return ($move->x_axis == $request->x_axis && $move->y_axis == $request->y_axis);
             });
 
             if((bool)$t){
-                return Response::error('You cant play to this location.', 400);
+                return Response::error("You can't play to this location.", 400);
             }
 
             $lastMove = $game->moves->sortBy('turn')->last();
@@ -92,7 +94,7 @@ class GameController extends Controller
                     'user_id' => $this->user->id,
                     'y_axis' => $request->y_axis,
                     'x_axis' => $request->x_axis,
-                    'turn' => isset($lastMove) ? $lastMove->turn++ : 1
+                    'turn' => isset($lastMove) ? ($lastMove->turn + 1) : 1
                 ]);
 
             $newMove = $game->moves()->save($newMove);
